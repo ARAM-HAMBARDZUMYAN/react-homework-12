@@ -5,7 +5,7 @@ import Registration from "../../pages/registr-in";
 
 const GuestComponent = () => {
   return <Routes>
-  <Route element={<Registration/>} path={'/registration'}/>
+    <Route element={<Registration/>} path={'/registration'}/>
     <Route element={<LogIn/>} path={'/login'}/>
     <Route element={<Navigate to={'/login'}/>} path={'/*'}/>
   </Routes>

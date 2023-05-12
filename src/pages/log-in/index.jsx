@@ -1,10 +1,11 @@
 import './style.css'
 import {useState} from "react";
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
+
 const LogIn = () => {
-    const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -14,19 +15,19 @@ const LogIn = () => {
   }
 
 
-    const handleClick = async () => {
-          const response  = await axios.get("https://crudcrud.com/api/54b7434fe7b8437b854d954f91ddf9c4/registration");
-          const registrationData = response.data;
-          dispatch({ type: "LOGIN_SUCCESS", payload: registrationData});
+  const handleClick = async () => {
+    const response = await axios.get("https://crudcrud.com/api/54b7434fe7b8437b854d954f91ddf9c4/registration");
+    const registrationData = response.data;
+    dispatch({type: "LOGIN_SUCCESS", payload: registrationData});
 
-          const matchingUser = registrationData.find((user) => user.password === formData.password && user.email === formData.email);
-
-          if (matchingUser) {
-            localStorage.setItem("test-token", formData.email + "_" + formData.password);
-            window.location.reload();
-          } else {
-            alert("Invalid email or password.");
-          }
+    const matchingUser = registrationData.find((user) => user.password === formData.password && user.email === formData.email);
+    console.log(registrationData)
+    if (matchingUser) {
+      localStorage.setItem("test-token", matchingUser._id);
+      window.location.reload();
+    } else {
+      alert("Invalid email or password.");
+    }
   }
 
   return <div className='P-login-block'>
@@ -38,7 +39,7 @@ const LogIn = () => {
         <input name={'password'} onChange={handleChange} type="password" placeholder={'Password'}/>
       </label>
       <button onClick={handleClick}>Log in</button>
-      <p>Not a member?   <NavLink to={'/registration'}>Registration</NavLink></p>
+      <p>Not a member? <NavLink to={'/registration'}>Registration</NavLink></p>
     </div>
   </div>
 }
