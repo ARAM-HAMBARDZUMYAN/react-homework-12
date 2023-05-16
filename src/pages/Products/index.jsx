@@ -1,10 +1,12 @@
 import ProductList from "../../components/ProductList"
 import ProductModal from "../../components/ProductModal"
 
+
 const Products = () => {
-    return <> 
+
+  return <>
     <ProductModal/>
     <ProductList/>
-    </>
-  }
-  export default Products
+  </>
+}
+export default Products

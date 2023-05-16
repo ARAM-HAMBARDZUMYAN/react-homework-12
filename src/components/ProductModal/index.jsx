@@ -1,56 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import React from 'react';
+
+import './style.scss'
+import useManageProduct from "./use-manage-product";
 
 const ProductModal = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    image: null,
-    category: ''
-  });
-  const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categoryReducer);
-
-  const handleSave = async () => {
-    
-      const response = await axios.post(
-        'https://crudcrud.com/api/54b7434fe7b8437b854d954f91ddf9c4/products',
-        formData
-      );
-      dispatch({ type: 'ADD_PRODUCT', payload: response.data });
-      setFormData({
-        name: '',
-        description: '',
-        price: '',
-        image: null,
-        category: ''
-      });
-      setShowModal(false);
-    
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === 'file' ? files[0] : value
-    }));
-  };
-
-  const handleCategoryChange = (e) => {
-    const selectedCategoryId = e.target.value;
-    const selectedCategory = categories.find(
-      (category) => category._id === selectedCategoryId
-    );
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      category: selectedCategory ? selectedCategory.name : ''
-    }));
-  };
+  const {
+    showModal,
+    setShowModal,
+    categories,
+    formData,
+    handleSave,
+    handleChange,
+    handleCategoryChange,
+    uploadImage
+  } = useManageProduct()
 
   return (
     <div>
@@ -86,24 +49,24 @@ const ProductModal = () => {
             type="file"
             accept="image/*"
             name="image"
-            onChange={handleChange}
+            onChange={uploadImage}
             className="modal-input"
           />
           {formData.image && (
             <img
-              src={URL.createObjectURL(formData.image)}
+              src={formData.image}
               alt="Selected Product"
               className="modal-image"
             />
           )}
           <select
-            value={formData.category}
+            value={formData.category.id}
             onChange={handleCategoryChange}
             className="modal-input"
           >
             <option value="">Select Category</option>
             {categories.map((category) => (
-              <option key={category._id} value={category._id}>
+              <option key={category._id} value={category._id} name={category.name}>
                 {category.name}
               </option>
             ))}

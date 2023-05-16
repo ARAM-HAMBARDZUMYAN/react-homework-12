@@ -10,9 +10,11 @@ const CategoryModal = () => {
 
   const handleSave = async () => {
       const response = await axios.post('https://crudcrud.com/api/54b7434fe7b8437b854d954f91ddf9c4/categories', { name: categoryName });
-      dispatch({ type: 'ADD_CATEGORY', payload: response.data });
-      setShowModal(false);
-      setCategoryName('');
+      if(response.data){
+        dispatch({ type: 'ADD_CATEGORY', payload: response.data });
+        setShowModal(false);
+        setCategoryName('');
+      }
   };
 
   return (

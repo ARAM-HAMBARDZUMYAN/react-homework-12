@@ -8,7 +8,11 @@ const productReducer = (state = initialState, action) => {
       return action.payload;
     case 'DELETE_PRODUCT':
       return state.filter((product) => product._id !== action.payload);
-    default:
+    case 'UPDATE_PRODUCT':
+        return state.map((product) =>
+          product._id === action.payload._id ? action.payload : product
+        );
+      default:
       return state;
   }
 };

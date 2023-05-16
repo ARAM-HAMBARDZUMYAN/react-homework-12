@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import axios from "axios"
 import {useDispatch} from "react-redux"
 import {NavLink} from "react-router-dom"
-
+import "./style.scss"
 const Registration = () => {
   const dispatch = useDispatch();
 
@@ -28,29 +28,37 @@ const Registration = () => {
       gender: "male",
     })
   }
-  return <div className='P-login-block'>
+  return <div className='P-registration-block'>
 
-    <div className='P-login-box'>
+    <div className='P-registration-box'>
       <label>
         <input name={'firstname'}
                type="text"
                onChange={handleChange}
-               placeholder={'firstname'}/>
+               placeholder={'firstname'}
+                className="registration-input"
+               />
       </label>
       <label>
         <input name={'lastname'}
                type="text"
                onChange={handleChange}
-               placeholder={'lastname'}/>
+               placeholder={'lastname'}
+               className="registration-input"
+               />
       </label>
       <label>
-        <input name={'email'} type="text" onChange={handleChange} placeholder='email'/>
+        <input name={'email'} type="text" onChange={handleChange} placeholder='email'
+             className="registration-input"
+        />
       </label>
       <label>
-        <input name={'password'} type="password" onChange={handleChange} placeholder={'Password'}/>
+        <input name={'password'} type="password" onChange={handleChange} placeholder={'Password'}
+             className="registration-input"
+        />
       </label>
       <label>
-        <span>Male :</span>
+        <span>Male </span>
         <input
           type="radio"
           name="gender"
@@ -58,7 +66,7 @@ const Registration = () => {
           checked={formData.gender === "male"}
           onChange={handleChange}
         />
-        <span>Female :</span>
+        <span>Female </span>
         <input
           type="radio"
           name="gender"
@@ -67,7 +75,7 @@ const Registration = () => {
           onChange={handleChange}
         />
       </label>
-      <button onClick={handleSubmit}>Registration</button>
+      <button className="registration-button" onClick={handleSubmit}>Registration</button>
       <p> member? <NavLink to={'/login'}>login</NavLink></p>
     </div>
   </div>

@@ -1,6 +1,6 @@
 const initialState = {
   registrationData: null,
-  userData: null
+  userData: null  
 
 };
 
